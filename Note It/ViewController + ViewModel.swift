@@ -8,7 +8,8 @@
 import Foundation
 
 extension ViewController{
-    class ViewModel{
+    class ViewModel: ObservableObject{
+        weak var appCoordinator: AppCoordinator?
         
     }
 }

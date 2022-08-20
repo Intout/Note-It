@@ -34,7 +34,7 @@ class AppCoordinator: Coordinator{
     func goToNoteList(){
         parentCoordinator = self
         let viewController = ViewController()
-        print("Trying to push!")
+        viewController.viewModel.appCoordinator = self
         navigationController?.pushViewController(viewController, animated: true)
     }
     

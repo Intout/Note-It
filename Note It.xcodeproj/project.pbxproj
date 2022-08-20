@@ -14,6 +14,7 @@
 		0071A09628B0C5B80072704C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0071A09428B0C5B80072704C /* LaunchScreen.storyboard */; };
 		0071A09E28B0C60E0072704C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A09D28B0C60E0072704C /* AppCoordinator.swift */; };
 		0071A0A028B0F3830072704C /* ViewController + ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A09F28B0F3830072704C /* ViewController + ViewModel.swift */; };
+		0071A0A228B10E710072704C /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A0A128B10E710072704C /* TableViewHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		0071A09728B0C5B80072704C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0071A09D28B0C60E0072704C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0071A09F28B0F3830072704C /* ViewController + ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController + ViewModel.swift"; sourceTree = "<group>"; };
+		0071A0A128B10E710072704C /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				0071A08B28B0C5B50072704C /* SceneDelegate.swift */,
 				0071A09D28B0C60E0072704C /* AppCoordinator.swift */,
 				0071A08D28B0C5B50072704C /* ViewController.swift */,
+				0071A0A128B10E710072704C /* TableViewHelper.swift */,
 				0071A09F28B0F3830072704C /* ViewController + ViewModel.swift */,
 				0071A09228B0C5B80072704C /* Assets.xcassets */,
 				0071A09428B0C5B80072704C /* LaunchScreen.storyboard */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0071A0A028B0F3830072704C /* ViewController + ViewModel.swift in Sources */,
+				0071A0A228B10E710072704C /* TableViewHelper.swift in Sources */,
 				0071A09E28B0C60E0072704C /* AppCoordinator.swift in Sources */,
 				0071A08E28B0C5B50072704C /* ViewController.swift in Sources */,
 				0071A08A28B0C5B50072704C /* AppDelegate.swift in Sources */,
