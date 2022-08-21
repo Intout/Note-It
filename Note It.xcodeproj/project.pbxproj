@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		004F801628B2322C0043F491 /* NoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004F801528B2322C0043F491 /* NoteDetailsViewController.swift */; };
+		004F801828B232500043F491 /* NoteDetailsViewController + ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004F801728B232500043F491 /* NoteDetailsViewController + ViewModel.swift */; };
 		0071A08A28B0C5B50072704C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A08928B0C5B50072704C /* AppDelegate.swift */; };
 		0071A08C28B0C5B50072704C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A08B28B0C5B50072704C /* SceneDelegate.swift */; };
 		0071A08E28B0C5B50072704C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A08D28B0C5B50072704C /* ViewController.swift */; };
@@ -15,9 +17,13 @@
 		0071A09E28B0C60E0072704C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A09D28B0C60E0072704C /* AppCoordinator.swift */; };
 		0071A0A028B0F3830072704C /* ViewController + ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A09F28B0F3830072704C /* ViewController + ViewModel.swift */; };
 		0071A0A228B10E710072704C /* TableViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A0A128B10E710072704C /* TableViewHelper.swift */; };
+		0071A0A428B122BB0072704C /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A0A328B122BB0072704C /* Data.swift */; };
+		0071A0A628B125510072704C /* NoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071A0A528B125510072704C /* NoteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		004F801528B2322C0043F491 /* NoteDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailsViewController.swift; sourceTree = "<group>"; };
+		004F801728B232500043F491 /* NoteDetailsViewController + ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NoteDetailsViewController + ViewModel.swift"; sourceTree = "<group>"; };
 		0071A08628B0C5B50072704C /* Note It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Note It.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0071A08928B0C5B50072704C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0071A08B28B0C5B50072704C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,6 +34,8 @@
 		0071A09D28B0C60E0072704C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0071A09F28B0F3830072704C /* ViewController + ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController + ViewModel.swift"; sourceTree = "<group>"; };
 		0071A0A128B10E710072704C /* TableViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHelper.swift; sourceTree = "<group>"; };
+		0071A0A328B122BB0072704C /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		0071A0A528B125510072704C /* NoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +49,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		004F801028B231C90043F491 /* Content View */ = {
+			isa = PBXGroup;
+			children = (
+				0071A08D28B0C5B50072704C /* ViewController.swift */,
+				0071A09F28B0F3830072704C /* ViewController + ViewModel.swift */,
+				004F801228B231DB0043F491 /* UI Components */,
+				004F801128B231D30043F491 /* Helpers */,
+			);
+			path = "Content View";
+			sourceTree = "<group>";
+		};
+		004F801128B231D30043F491 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0071A0A128B10E710072704C /* TableViewHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		004F801228B231DB0043F491 /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				0071A0A528B125510072704C /* NoteTableViewCell.swift */,
+			);
+			path = "UI Components";
+			sourceTree = "<group>";
+		};
+		004F801428B232020043F491 /* Note Details View */ = {
+			isa = PBXGroup;
+			children = (
+				004F801528B2322C0043F491 /* NoteDetailsViewController.swift */,
+				004F801728B232500043F491 /* NoteDetailsViewController + ViewModel.swift */,
+			);
+			path = "Note Details View";
+			sourceTree = "<group>";
+		};
 		0071A07D28B0C5B50072704C = {
 			isa = PBXGroup;
 			children = (
@@ -63,9 +107,9 @@
 				0071A08928B0C5B50072704C /* AppDelegate.swift */,
 				0071A08B28B0C5B50072704C /* SceneDelegate.swift */,
 				0071A09D28B0C60E0072704C /* AppCoordinator.swift */,
-				0071A08D28B0C5B50072704C /* ViewController.swift */,
-				0071A0A128B10E710072704C /* TableViewHelper.swift */,
-				0071A09F28B0F3830072704C /* ViewController + ViewModel.swift */,
+				0071A0A328B122BB0072704C /* Data.swift */,
+				004F801428B232020043F491 /* Note Details View */,
+				004F801028B231C90043F491 /* Content View */,
 				0071A09228B0C5B80072704C /* Assets.xcassets */,
 				0071A09428B0C5B80072704C /* LaunchScreen.storyboard */,
 				0071A09728B0C5B80072704C /* Info.plist */,
@@ -143,8 +187,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				004F801828B232500043F491 /* NoteDetailsViewController + ViewModel.swift in Sources */,
+				0071A0A428B122BB0072704C /* Data.swift in Sources */,
 				0071A0A028B0F3830072704C /* ViewController + ViewModel.swift in Sources */,
+				004F801628B2322C0043F491 /* NoteDetailsViewController.swift in Sources */,
 				0071A0A228B10E710072704C /* TableViewHelper.swift in Sources */,
+				0071A0A628B125510072704C /* NoteTableViewCell.swift in Sources */,
 				0071A09E28B0C60E0072704C /* AppCoordinator.swift in Sources */,
 				0071A08E28B0C5B50072704C /* ViewController.swift in Sources */,
 				0071A08A28B0C5B50072704C /* AppDelegate.swift in Sources */,

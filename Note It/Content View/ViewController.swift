@@ -8,6 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
     var viewModel = ViewModel()
     private var tableViewHelper: TableViewHelper?
     
@@ -40,14 +41,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        print("View Loaded!")
+        
         self.tableViewHelper = TableViewHelper(tableView: self.tableView)
-        self.view.backgroundColor = .orange
+        
+        tableViewHelper?.delegate = self
+        viewModel.delegate = self
+        
+        viewModel.viewDidLoad()
         
         setupUI()
     }
     
     private func setupUI(){
+        self.view.backgroundColor = .orange
         view.addSubview(containerView)
         //containerView.addSubview(titleTextLabel)
         containerView.addSubview(tableView)
@@ -92,3 +98,15 @@ class ViewController: UIViewController {
 
 }
 
+extension ViewController: ViewModelDelegate{
+    func dataDidFetched(data: [NoteData]) {
+        tableViewHelper?.setData(data: data)
+    }
+}
+
+extension ViewController: TableViewHelperDelegate{
+    func rowSelected(for id: UUID) {
+        print(self.viewModel.getData(with: id))
+        viewModel.requestNavigation(for: id)
+    }
+}

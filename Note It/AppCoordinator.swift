@@ -38,5 +38,12 @@ class AppCoordinator: Coordinator{
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    func goToNoteDetails(with data: NoteData?){
+        let viewController = NoteDetailsViewController()
+        viewController.viewModel.setData(data: data)
+        viewController.viewModel.appCoordinator = self
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     
 }
