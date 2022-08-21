@@ -10,6 +10,7 @@ import UIKit
 class NoteDetailsViewController: UIViewController {
 
     var viewModel = ViewModel()
+    var collectionViewHelper: CollectionViewHelper?
     
     private lazy var scrollView: UIScrollView = {
        
@@ -20,19 +21,37 @@ class NoteDetailsViewController: UIViewController {
         
     }()
     
-    private lazy var containterView: UIView = {
+    private lazy var collectionView: UICollectionView = {
         
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+        let collectionViewFlowLayout = UICollectionViewFlowLayout()
+        collectionViewFlowLayout.scrollDirection = .horizontal
+        collectionViewFlowLayout.itemSize = CGSize(width: 50, height: 50)
+        collectionViewFlowLayout.minimumLineSpacing = 20
+        collectionViewFlowLayout.minimumInteritemSpacing = 20
+        
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: collectionViewFlowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
+        return collectionView
         
     }()
     
+    
     private lazy var textContainterView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white.withAlphaComponent(0.90)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private lazy var vStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 25
+        //stackView.distribution = .fillProportionally
+        stackView.layoutMargins = UIEdgeInsets(top: 25, left: 50, bottom: 0, right: 50)
+        return stackView
     }()
     
     private lazy var titleTextField: UITextField = {
@@ -71,23 +90,53 @@ class NoteDetailsViewController: UIViewController {
         
     }()
     
+    private lazy var bodyTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.backgroundColor = .clear
+        textView.font = .systemFont(ofSize: 15)
+        textView.isScrollEnabled = false
+        textView.text = "Text goes here..."
+        return textView
+    }()
+    
+    fileprivate lazy var doneButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonPressed))
+        
+        button.tintColor = UIColor.white
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        viewModel.delegate = self
+        collectionViewHelper = CollectionViewHelper(collectionView: collectionView)
+        collectionViewHelper?.delegate = self
+        viewModel.viewDidLoad()
+        
+        
         setupUI()
     }
     
     private func setupUI(){
         
-        view.backgroundColor = .orange
+        view.backgroundColor = UIColor(red: 254/255, green: 223/255, blue: 191/255, alpha: 1)
+        
+        self.navigationItem.rightBarButtonItem = doneButton
         
         view.addSubview(scrollView)
-        scrollView.addSubview(containterView)
+       
         
-        containterView.addSubview(textContainterView)
+        scrollView.addSubview(textContainterView)
         
-        textContainterView.addSubview(titleTextField)
-        textContainterView.addSubview(subtitleTextField)
+        textContainterView.addSubview(vStack)
+        
+        vStack.addArrangedSubview(collectionView)
+        vStack.addArrangedSubview(titleTextField)
+        vStack.addArrangedSubview(subtitleTextField)
+        vStack.addArrangedSubview(bodyTextView)
         
         setupConstraints()
         
@@ -96,40 +145,46 @@ class NoteDetailsViewController: UIViewController {
     private func setupConstraints(){
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            scrollView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            containterView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            containterView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            containterView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            containterView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
+            textContainterView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            textContainterView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+            textContainterView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            textContainterView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            textContainterView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+            
         ])
         
         NSLayoutConstraint.activate([
-            textContainterView.topAnchor.constraint(equalTo: containterView.topAnchor),
-            textContainterView.bottomAnchor.constraint(equalTo: containterView.bottomAnchor),
-            textContainterView.widthAnchor.constraint(equalTo: containterView.widthAnchor),
-            textContainterView.heightAnchor.constraint(equalTo: containterView.heightAnchor)
+            vStack.rightAnchor.constraint(equalTo: textContainterView.rightAnchor, constant: -5),
+            vStack.leftAnchor.constraint(equalTo: textContainterView.leftAnchor, constant: 5),
+            vStack.topAnchor.constraint(equalTo: textContainterView.topAnchor),
+            vStack.bottomAnchor.constraint(equalTo: textContainterView.bottomAnchor),
         ])
         
         NSLayoutConstraint.activate([
-            titleTextField.topAnchor.constraint(equalTo: textContainterView.topAnchor, constant: 50),
-            titleTextField.leadingAnchor.constraint(equalTo: textContainterView.leadingAnchor, constant: 25),
-            titleTextField.trailingAnchor.constraint(equalTo: textContainterView.trailingAnchor, constant: 0),
+            collectionView.heightAnchor.constraint(equalToConstant: 50),
         ])
+    
+        if let view = vStack.arrangedSubviews.last{
+            NSLayoutConstraint.activate([
+                view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+                
+            ])
+        }
         
-        NSLayoutConstraint.activate([
-            subtitleTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 25),
-            subtitleTextField.leadingAnchor.constraint(equalTo: textContainterView.leadingAnchor, constant: 25),
-            subtitleTextField.trailingAnchor.constraint(equalTo: textContainterView.trailingAnchor, constant: 0),
-        ])
         
         
+        
+    }
+    
+    @objc func doneButtonPressed(){
+        viewModel.doneButtonEvent(title: titleTextField.text ?? "", subtitle: subtitleTextField.text ?? "", body: bodyTextView.text ?? "")
         
     }
 
@@ -142,5 +197,24 @@ extension UIView{
         border.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         border.frame = CGRect(x: 0, y: frame.size.height + offset, width: frame.size.width, height: borderWidth)
         self.addSubview(border)
+    }
+}
+
+extension NoteDetailsViewController: NoteDetailsViewModelDelegate{
+    func dataDidFetched(data: NoteData?) {
+        if let data = data{
+            titleTextField.text = data.title
+            subtitleTextField.text = data.subTitle
+            bodyTextView.text = data.body
+            collectionViewHelper?.setData(name: viewModel.selectedImage)
+        }
+    }
+}
+
+extension NoteDetailsViewController: CollectionViewHelperDelegate{
+    func rowSelected(for name: String) {
+        viewModel.selectedImage = name
+        collectionViewHelper?.setData(name: name)
+        print(name)
     }
 }

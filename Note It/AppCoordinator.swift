@@ -45,5 +45,12 @@ class AppCoordinator: Coordinator{
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    func detailsDone(with data: NoteData){
+        (navigationController?.viewControllers.first as! ViewController).viewModel.updateData(data: data)
+        navigationController?.popToRootViewController(animated: true)
+        (navigationController?.viewControllers.first as! ViewController).viewDidLoad()
+        
+    }
+    
     
 }

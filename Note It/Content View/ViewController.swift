@@ -38,6 +38,15 @@ class ViewController: UIViewController {
         
     }()
     
+    fileprivate lazy var addButton: UIBarButtonItem = {
+        
+        let button = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonPressed))
+        
+        button.tintColor = UIColor.white
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -59,6 +68,8 @@ class ViewController: UIViewController {
         containerView.addSubview(tableView)
         tableView.backgroundColor = .clear
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+        self.navigationItem.rightBarButtonItem = addButton
         
         let navigationBarAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
@@ -109,4 +120,9 @@ extension ViewController: TableViewHelperDelegate{
         print(self.viewModel.getData(with: id))
         viewModel.requestNavigation(for: id)
     }
+            
+    @objc func addButtonPressed(){
+        viewModel.requestNavigation(for: nil)
+    }
+            
 }

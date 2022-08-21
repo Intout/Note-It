@@ -57,8 +57,8 @@ extension TableViewHelper: UITableViewDataSource{
         
         cell.titleLabel.text = data[indexPath.item].title
         cell.subtitleLabel.text = data[indexPath.item].subTitle
-        cell.editDateLabel.text = data[indexPath.item].createdAt
-        cell.image.image = UIImage(systemName: data[indexPath.item].imageName)
+        cell.editDateLabel.text = data[indexPath.item].updatedAt
+        cell.image.image = UIImage(named: data[indexPath.item].imageName)
         
         
         return cell

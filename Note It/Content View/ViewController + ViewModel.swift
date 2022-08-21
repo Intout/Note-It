@@ -17,7 +17,7 @@ extension ViewController{
         weak var appCoordinator: AppCoordinator?
         weak var delegate: ViewModelDelegate?
         
-        private var dummyData: [NoteData] = [.init(title: "Grocery List", subTitle: "List for Bakery and Super Market", body: "Body", imageName: "square.and.arrow.up.circle", createdAt: "10/10/2022")]
+        private var dummyData: [NoteData] = [.init(title: "Grocery List", subTitle: "List for Bakery and Super Market", body: "Body", imageName: "Groceries", createdAt: "10/10/2022")]
         
         
         func getData() -> [NoteData]{
@@ -30,14 +30,30 @@ extension ViewController{
             })!
         }
         
-        func requestNavigation(for id: UUID){
-            appCoordinator?.goToNoteDetails(with: getData(with: id))
+        func requestNavigation(for id: UUID?){
+            
+            if let id = id{
+                appCoordinator?.goToNoteDetails(with: getData(with: id))
+            } else {
+                appCoordinator?.goToNoteDetails(with: nil)
+            }
+            
         }
         
         func viewDidLoad(){
             delegate?.dataDidFetched(data: getData())
         }
         
+        func updateData(data: NoteData){
+            let dataCondition = getData().firstIndex{
+                $0.id == data.id
+            }
+            if dataCondition != nil{
+                dummyData[dataCondition!] = data
+            } else {
+                dummyData.append(data)
+            }
+        }
         
     }
 }
