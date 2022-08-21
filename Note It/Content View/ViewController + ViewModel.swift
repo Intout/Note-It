@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol ViewModelDelegate: AnyObject{
     func dataDidFetched(data: [NoteData])
@@ -24,10 +25,15 @@ extension ViewController{
             return dummyData
         }
         
-        func getData(with id: UUID) -> NoteData{
-            return getData().first(where: {
-                $0.id == id
-            })!
+        func getData(with id: UUID) -> NoteData?{
+            
+            do{
+                var currentData = try Realm().objects(NoteDataObject.self).first(where: {$0.id == id})
+                return .init(id: currentData!.id,title: currentData!.title, subTitle: currentData!.subtitle, body: currentData!.body, imageName: currentData!.imagName, createdAt: currentData!.createdAt, updatedAt: currentData!.updatedAt)
+            } catch{
+                print("Error!")
+            }
+        return nil
         }
         
         func requestNavigation(for id: UUID?){
@@ -41,18 +47,36 @@ extension ViewController{
         }
         
         func viewDidLoad(){
-            delegate?.dataDidFetched(data: getData())
+            do{
+                let data: [NoteDataObject] = try Array(Realm().objects(NoteDataObject.self))
+                delegate?.dataDidFetched(data: data.map{
+                    NoteData(id: $0.id, title: $0.title, subTitle: $0.subtitle, body: $0.body, imageName: $0.imagName, createdAt: $0.createdAt, updatedAt: $0.updatedAt)
+                })
+            } catch {
+                print("No data")
+            }
         }
         
         func updateData(data: NoteData){
-            let dataCondition = getData().firstIndex{
-                $0.id == data.id
+            do{
+                if let item = try Realm().objects(NoteDataObject.self).first(where: { $0.id == data.id }){
+                    try Realm().write{
+                        item.imagName = data.imageName
+                        item.title = data.title
+                        item.subtitle = data.subTitle
+                        item.body = data.body
+                        item.updatedAt = data.updatedAt!
+                    }
+                } else {
+                    let realm = try! Realm()
+                    try! realm.write{
+                        realm.add(data.managedObject())
+                    }
+                }
+            } catch {
+                print("Error!")
             }
-            if dataCondition != nil{
-                dummyData[dataCondition!] = data
-            } else {
-                dummyData.append(data)
-            }
+            
         }
         
     }

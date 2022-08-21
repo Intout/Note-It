@@ -66,6 +66,10 @@ class ViewController: UIViewController {
         view.addSubview(containerView)
         //containerView.addSubview(titleTextLabel)
         containerView.addSubview(tableView)
+        navigationController?.toolbar.frame = CGRect(x: 0,
+                                   y: 0,
+                                   width: view.bounds.width,
+                                   height: 40)
         tableView.backgroundColor = .clear
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
