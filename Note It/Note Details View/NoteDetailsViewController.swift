@@ -103,7 +103,7 @@ class NoteDetailsViewController: UIViewController {
     fileprivate lazy var doneButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneButtonPressed))
         
-        button.tintColor = UIColor.white
+        button.tintColor = UIColor.black
         
         return button
     }()
@@ -125,7 +125,7 @@ class NoteDetailsViewController: UIViewController {
         view.backgroundColor = UIColor(red: 254/255, green: 223/255, blue: 191/255, alpha: 1)
         
         self.navigationItem.rightBarButtonItem = doneButton
-        
+        self.navigationController?.navigationBar.tintColor = .black
         view.addSubview(scrollView)
        
         
@@ -184,7 +184,10 @@ class NoteDetailsViewController: UIViewController {
     }
     
     @objc func doneButtonPressed(){
-        viewModel.doneButtonEvent(title: titleTextField.text ?? "", subtitle: subtitleTextField.text ?? "", body: bodyTextView.text ?? "")
+        
+        if titleTextField.text?.count ?? 0 > 0 && subtitleTextField.text?.count ?? 0 > 0{
+            viewModel.doneButtonEvent(title: titleTextField.text ?? "", subtitle: subtitleTextField.text ?? "", body: bodyTextView.text ?? "")
+        }
         
     }
 

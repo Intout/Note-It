@@ -59,7 +59,7 @@ extension TableViewHelper: UITableViewDataSource{
         cell.subtitleLabel.text = data[indexPath.item].subTitle
         cell.editDateLabel.text = data[indexPath.item].updatedAt
         cell.image.image = UIImage(named: data[indexPath.item].imageName)
-        
+        cell.selectionStyle = .none
         
         return cell
     }
